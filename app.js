@@ -2,21 +2,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const carsRoutes = require('./routes/cars');
+const contactRoutes = require('./routes/contact');
 const app = express();
 require('./models/db');
 const cors = require("cors");
 // initializing server
 app.use(cors());
+// initialize the port as posted to heroku or running locally
 const port = process.env.PORT || 3000;
-
-// app.get('/', (req, res) => {
-//     res.send("Hello world");
-// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/cars', carsRoutes);
+
+app.use('/contact', contactRoutes);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
