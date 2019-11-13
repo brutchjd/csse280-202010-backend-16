@@ -23,9 +23,3 @@ const carSchema = new mongoose.Schema({
 const Car = mongoose.model("Car", carSchema);
 module.exports = Car;
 
-        //trim: String,
-        //class: String,
-                //transmission: String,
-        //doors: String,
-        //capacity: String,
-                //engine: String

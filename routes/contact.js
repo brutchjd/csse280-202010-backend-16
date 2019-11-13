@@ -25,7 +25,7 @@ router.route('/')
             </ul>
             <h3>Contact Message:<h3>
             <p>${req.body.message}<p>
-        `
+        `;
 
         let transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -33,7 +33,7 @@ router.route('/')
                 user: 'streamlineunited@gmail.com',
                 pass: 'qWaBTJAB437X'
             }
-        })
+        });
 
         let mailOptions = {
             from: 'streamlineunited@gmail.com',
@@ -41,7 +41,7 @@ router.route('/')
             subject: `New Web Contact From: ${req.body.name}`,
             text: req.body.message,
             html: htmlEmail
-        }
+        };
 
         transporter.sendMail(mailOptions, (err, info) => {
             if(err) {
@@ -49,7 +49,7 @@ router.route('/')
             } else {
                 console.log(info);
             }
-        })
+        });
         res.json("success");
     });
 

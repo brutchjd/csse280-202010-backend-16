@@ -73,7 +73,7 @@ const containsId = function(req, res, next) {
         req.id = req.params.id;
         next();
     }
-}
+};
 
 
 router.route("/:id")
