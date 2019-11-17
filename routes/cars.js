@@ -30,7 +30,6 @@ router.route('/')
                 handleError(err, res, "Could not find any cars");
                 return;
             } else {
-                console.log(cars);
                 res.status(200);
                 res.json(cars);
             }
@@ -64,21 +63,21 @@ router.route('/')
         });
     });
 
-const containsId = function(req, res, next) {
-    const validId = mongoose.Types.ObjectId.isValid(req.params.id);
-    if(!req.params || !res.params.id || !validId) {
-        res.status(404);
-        handleError(new Error(), res, "Invalid id passed");
-    } else {
-        req.id = req.params.id;
-        next();
-    }
-};
+// const containsId = function(req, res, next) {
+//     const validId = mongoose.Types.ObjectId.isValid(req.params.id);
+//     if(!req.params || !res.params.id || !validId) {
+//         res.status(404);
+//         handleError(new Error(), res, "Invalid id passed");
+//     } else {
+//         req.id = req.params.id;
+//         next();
+//     }
+// };
 
 
 router.route("/:id")
-    .get([containsId], (req, res) => {
-        Car.findById(req.id, (err, car) => {
+    .get( (req, res) => {
+        Car.findById(req.params.id, (err, car) => {
             if(err) {
                 res.status(400);
                 handleError(err, res, "GET error, problem retrivieving car data by id");
@@ -88,10 +87,10 @@ router.route("/:id")
             }
         });
     })
-    .put([containsId], (req, res) => {
+    .put( (req, res) => {
         Car.findOneAndUpdate(
             {_id: req.id},
-            {$Set: {
+            {$set: {
                 vin: req.body.vin,
                 make: req.body.make,
                 model: req.body.model,
@@ -119,8 +118,8 @@ router.route("/:id")
                 }
             });
     })
-    .delete([containsId], (req, res) => {
-        Car.findByIdAndRemove(req.id)
+    .delete( (req, res) => {
+        Car.findByIdAndRemove(req.params.id)
             .exec((err) => {
                 if(err) {
                     res.status(404);
